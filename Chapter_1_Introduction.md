@@ -70,12 +70,76 @@
 
 幸运的是，这种“语法”可以在不需要输出标签的情况下学习。例如，我们可以通过学习大型文本数据语料库的统计数据来学习如何形成有效的英语句子。这就与本书的下一节提供了联系，该节考虑了*无监督学习模型*（*unsupervised learning models*）。
 
+## 1.2 无监督学习
 
+构建一个没有相应输出标签的输入数据的模型被称为*无监督学习*（*unsupervised learning*）；没有输出标签意味着不可能有“监督”。与其说是学习从输入到输出的映射，不如说是为了描述或理解数据的结构。至于监督学习，数据可能有非常不同的特征；它可能是离散的或连续的，低维的或高维的，长度恒定的或可变的。
 
+### 1.2.1 生成模型
 
+这本书关注于*生成式无监督模型*（*generative unsupervised models*），这些模型学习生成新的在统计上与数据训练没有区别的数据样本。一些生成模型明确表述了输入主体的分布概率，这里的新例子是通过分布中抽样产生的。其他的仅仅是学习一种生成新例子的机制。
+
+最先进的生成模型可以合成极为合理但又不同于训练实例的例子。它们在生成图像（图1.5）和文本（图1.6）方面特别成功，还可以在某些输出是预先确定的约束条件下合成数据（称为*条件合成*（*conditional synthesis*））。这方面的例子包括图像绘画（图1.7）和文本完成（图1.8）。事实上，现代的文本生成模型是如此强大，以至于它们可以显得很聪明。给出一段文字，后面是一个问题，模型通常可以通过生成最可能的文档完成度来“填补”缺少的答案。然而在现实中，该模型只知道语言的统计，并不了解其答案的意义。
+
+![图 1.5](assets/fig1_5.png)
+
+**图1.5** *图像的生成模型。左图：两个图像是由一个在猫的图片上训练的模型生成的。这些不是真正的猫，而是来自一个概率模型的样本。右图：两幅图像是由一个在建筑物图片上训练的模型生成的。改编自Karras等人 [3]。*
+
+![图 1.6](assets/fit1_6.png)
+
+**图1.6** *从文本数据的生成模型中合成的短篇故事。该模型描述了一个概率分布，为每个输出字符串分配了一个概率。从该模型中取样，可以创造出以前从未见过的遵循训练数据*（*这里是短篇小说*）*的统计数据字符串。*
+
+![图 1.7](assets/fit1_7.png)
+
+**图1.7** *图像修复。原始图像中（左）的男孩被金属缆绳遮挡住了。这些不想要的区域（中间）被移除，在其余像素必须保持不变的约束下，生成模型合成了一个新的图像（右）。改编自Saharia等人[4]。*
+
+![图 1.8](assets/fit1_8.png)
+
+**图1.8** *条件性文本合成。给定一个初始文本体（黑色），文本的生成模型可以通过合成字符串的“缺失”部分来合理地延续该文本。由GPT3*（*Brown等人[5]*）*生成。*
+
+### 1.2.2 隐变量
+
+一些生成模型利用了观察数据可能比观察变量的原始数量所表明的维度更低的观察结果。例如，有效和有意义的英语句子的数量要比随机抽出的单词所产生的字符串的数量小得多。同样地，现实世界的图像是通过为每个像素随机绘制RGB值来创建的图像的一个很小的子集。这是因为图像是由物理过程产生的（图1.9）。
+
+![图 1.9](assets/fit1_9.png)
+
+**图1.9** *多样的人脸变化。人的面部大约包含42块肌肉，所以只用42个数字就可以描述同一个人在相同灯光下的大部分变化。一般来说，图像、音乐和文本的数据集可以用相对较少的基础变量来描述，尽管通常比较难以将这些变量与特定的物理机制联系起来。图片来自动态FACES数据库*（*Holland等人[6]*）*。*
+
+这导致了我们可以用较少的基础*隐变量*（*latent variables*）来描述每个数据实例的想法。深度学习在这里的作用是描述这些隐变量和数据之间的映射关系。隐变量一般有一个简单设计的概率分布。通过从这个分布中取样并将结果传递给深度学习模型，我们可以创建新的样本（图1.10）。
+
+![图 1.10](assets/fit1_10.png)
+
+**图1.10** *隐变量。许多生成模型使用深度学习模型来描述低维“潜在”变量和观察到的高维数据之间的关系。隐变量在设计上有一个简单的概率分布。因此，新的例子可以通过从隐变量的简单分布中取样，然后使用深度学习模型将样本映射到观察到的数据空间来生成。*
+
+这些模型导致了操纵真实数据的新方法。例如，考虑找到支撑两个真实例子的隐变量，我们可以通过在这些例子的潜表征之间进行插值，并将中间位置映射回数据空间（图1.11）。
+
+![图 1.11](assets/fit1_11.png)
+
+**图1.11** *图像插值。在每一行中，左边和右边的图像是真实的，中间的三幅图像代表了由生成模型创建的插值序列。通过支撑这些插值的生成模型已经得知所有的图像都可以由一组潜在的变量创建。通过找到两个真实图像的这些变量，插入它们的值，然后使用这些中间变量来创建新的图像，我们可以产生既在视觉上可信又混合了两个原始图像的特征的中间结果。上行改编自Sauer等人 [7]。底行改编自Ramesh等人 [8]。*
+
+### 1.2.3 连接监督和无监督学习
+
+具有隐变量的生成模型也可以使输出具有结构的监督学习模型受益（图1.4）。例如，考虑学习预测一个标题所对应的图像。我们可以学习解释文本和解释图像的隐变量之间的关系，而不是直接将文本输入映射到图像上。
+
+这里有三个优点。首先，由于输入和输出的维度较低，我们可能需要更少的文本/图像对来学习这种映射。第二，我们更有可能产生一个看起来很合理的图像；任何合理的潜变量值都应该产生一些看起来很合理的例子。第三，如果我们在两组潜变量之间的映射或从潜变量到图像的映射中引入随机性，那么我们可以生成多个图像，这些图像都能被标题很好地描述（图1.12）。
+
+![图 1.12](assets/fit1_12.png)
+
+**图1.12** *从标题“时代广场滑板上的泰迪熊”生成的多幅图像。由DALL-E-2*（*Ramesh等人* [8]）*生成。*
 
 ## 引用
 
 [1] Noh, H., Hong, S., & Han, B. (2015). Learning deconvolution network for semantic segmentation. IEEE International Conference on Computer Vision, 1520–1528.
 
 [2] Cordts, M., Omran, M., Ramos, S., Rehfeld, T., Enzweiler, M., Benenson, R., Franke, U., Roth, S., & Schiele, B. (2016). The Cityscapes dataset for semantic urban scene understanding. IEEE/CVF Computer Vision & Pattern Recognition, 1877–1901
+
+[3] Karras, T., Laine, S., Aittala, M., Hellsten, J., Lehtinen, J., & Aila, T. (2020b). Analyzing and improving the image quality of StyleGAN. IEEE/CVF Computer Vision & Pattern Recognition, 8110–8119.
+
+[4] Saharia, C., Chan, W., Chang, H., Lee, C., Ho, J., Salimans, T., Fleet, D., & Norouzi, M. (2022a). Palette: Image-to-image diffusion models. ACM SIGGRAPH.
+
+[5] Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et al. (2020). Language models are few-shot learners. Neural Information Processing Systems, 33, 1877– 1901.
+
+[6] Holland, C. A., Ebner, N. C., Lin, T., & SamanezLarkin, G. R. (2019). Emotion identification across adulthood using the dynamic faces database of emotional expressions in younger, middle aged, and older adults. Cognition and Emotion, 33(2), 245–257.
+
+[7] Sauer, A., Schwarz, K., & Geiger, A. (2022). StyleGAN-XL: Scaling StyleGAN to large diverse datasets. ACM SIGGRAPH.
+
+[8] Ramesh, A., Dhariwal, P., Nichol, A., Chu, C., & Chen, M. (2022). Hierarchical textconditional image generation with CLIP latents. arXiv:2204.06125.
