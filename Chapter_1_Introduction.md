@@ -146,7 +146,25 @@
 
 **图1.13** *强化学习的策略网络。将深度神经网络纳入强化学习的一种方法是用它们来定义从状态*（*这里是棋盘上的位置*）*到行动*（*可能的动作*）*的映射。这种映射被称为策略。改编自Pablok [9]*。
 
+## 1.4 伦理准则
 
+如果不讨论人工智能的伦理含义就写这本书是不负责任的。这项强大的技术至少将会与电力、内燃机、晶体管或者互联网一样改变世界。医疗保健、设计、娱乐、交通、教育和几乎所有商业领域的潜在利益都是巨大的。然而，科学家和工程师往往对他们的工作成果抱有不切实际的乐观态度，潜在的危害也同样巨大，我们将从五个问题进行分析。
+
+**偏见和公平：**如果我们训练一个系统根据历史数据来预测个人的薪水水平，那么这个系统就会重现历史偏差。例如这个系统可能会预测女性的报酬应低于男性。以下几个案例已经成为国际新闻报道：用于基于人工智能的超分辨率面部图像系统使非白人看起来更白；当被要求合成律师图片时，用于生成图像的系统只生成男性图片。使用人工智能进行算法决策的粗心应用有可能巩固或加剧现有的偏见。有关进一步讨论，请参见 Binns [10]。
+
+**可解释性：**深度学习系统做出决策但是我们通常不知道如何或者基于什么信息。他们可能包含百万参数量并且没有一种我们没有办法根据检查来了解他们工作的原理的方式。这导致了可解释人工智能这个子领域的出现，一个适度成功的领域是产生局部解释；我们虽不能解释整个系统，但我们可以产生一个可解释的描述，说明为什么做出了一个特定的决定。然而是否有可能建立对用户甚至其创造者完全透明的复杂决策系统仍是个未知数。更多信息见Grennan等人 [11]。
+
+**武器化人工智能：**所有重要的科技都直接或间接面向着战争。令人难过的是，暴力冲突意味着成为人类行为的一个不可避免的特征{~译者也表示对此很难过，想想看为什么YOLO的原作者写完v3之后不再有任何这方面的研究了，就是因为人类将他的成果应用于了战争。我也是一个极力反对AI应用于战争的，但这又是我心有余而力不足的~}。人工智能可以说是有史以来最强大的技术，无疑将在军事方面得到广泛部署。事实上这种事情已经发生了（见Heikkila [12]）。
+
+**权利集中：**世界上最强大的公司在人工智能方面投入巨资，并不是出于改善人类命运的善意{~译者也要吐槽了，如今深度学习模型逐渐变成资本的游戏了，大规模网络架构的出现严重影响到普通人的生产空间了。想想看动不动就几百张A100并行训练，这普通人谁能玩得起~}。他们知道这些技术将使他们获得巨大的利润。如同任何先进技术一样，人工智能很可能将权力集中在控制它的少数组织手中。将目前由人类完成的工作自动化将改变经济环境，并不成比例地影响到技能较少的低薪工人的生计{~参考一下OpenAI的ChatGPT~}。乐观者认为工业革命期间发生的类似破坏导致工作时间缩短。事实是我们根本不知道大规模采用人工智能会对社会产生什么影响（见David [13]）。
+
+**存在的风险：**人类面临的主要风险都是由技术造成的。气候变化是由工业化推动的；核武器源于物理学的研究；由于运输、农业和建筑方面的创新使得人口规模更大、更密集、更相互联系，大流行病的发生概率更高，传播速度更快。人工智能带来了新的生存风险。对于建立比人类更有能力和可扩展性的系统，我们应该非常谨慎。在最乐观的情况下，它将把巨大的权力放在所有者手中。在最悲观的情况下，我们将无法控制它，甚至无法理解它的动机（见Tegmark [14]）。
+
+这个伦理准则清单并不是详细的。人工智能还可以使监视、虚假信息、侵犯隐私、欺诈和操纵金融市场成为可能，而训练人工智能系统所需的能源也有助于气候变化。这些担忧并不是推测出来的，已经有很多人工智能在伦理上可疑的应用的例子（见Dao [15]）。此外，互联网的近期历史表明，新技术如何以意想不到的方式造成伤害。八十年代和九十年代初的网络社区很难预测到假新闻、垃圾邮件、在线骚扰、欺诈、网络欺凌、乱伦文化、政治操纵、人肉搜索、在线激进化和报复性色情的扩散。
+
+任何人学习、研究或写作关于人工智能都应当沉思科学家在何种程度上对其技术的使用负有责任。我们应该考虑到资本主义主要推动了人工智能的发展，法律进步和社会公益的部署可能会大量滞后。我们应该反思作为科学家和工程师，是否有可能控制这个领域的进展，减少潜在的伤害。我们应该考虑准备为什么样的组织工作。他们对减少人工智能的潜在危害的承诺有多认真？他们是简单地 "洗刷道德 "以减少声誉风险，还是真的实施机制来停止有道德问题的项目？
+
+我们鼓励所有读者进一步研究这些问题。[https://ethics-of-ai.mooc.fi/ ](https://ethics-of-ai.mooc.fi/ )上的在线课程是一个有用的介绍性资源。如果你是一位教授，我们鼓励你向你的学生提出这些问题。如果你是一名学生，正在学习一门没有这样做的课程，那么请游说你的教授，使之成为现实。如果你在企业环境中部署或研究人工智能，我们鼓励你仔细检查你的雇主的价值观，如果他们想要帮助改变他们（或离开）。
 
 ## 引用
 
@@ -167,3 +185,15 @@
 [8] Ramesh, A., Dhariwal, P., Nichol, A., Chu, C., & Chen, M. (2022). Hierarchical textconditional image generation with CLIP latents. arXiv:2204.06125.
 
 [9] Pablok, J. (2017). Chess pieces and board improved. Wikimedia Commons. Retrieved January 17, 2023. [https://commons.wikimedia.org/wiki/File:Chess_pieces_and_board_improved.svg](https://commons.wikimedia.org/wiki/File:Chess_pieces_and_board_improved.svg).
+
+[10] Binns, R. (2018). Algorithmic accountability and public reason. Philosophy & Technology, 31(4), 543–556.
+
+[11] Grennan, L., Kremer, A., Singla, A., & Zipparo, P. (2022). Why businesses need explainableAI—and how to deliver it. McKinsey, September 29, 2022. [https://www.mckinsey.com/capabilities/quantumblack/our-insights/why-businesses-need-explainable-ai-andhow-to-deliver-it/](https://www.mckinsey.com/capabilities/quantumblack/our-insights/why-businesses-need-explainable-ai-andhow-to-deliver-it/).
+
+[12] Heikkilä, M. (2022). Why business is booming for military AI startups. MIT Technology Review, July 7 2022. [https://www.technologyreview.com/2022/07/07/1055526/why-business-isbooming-for-military-ai-startups/](https://www.technologyreview.com/2022/07/07/1055526/why-business-isbooming-for-military-ai-startups/).
+
+[13] David, H. (2015). Why are there still so many jobs? The history and future of workplace automation. Journal of Economic Perspectives, 29(3), 3–30.
+
+[14] Tegmark, M. (2018). Life 3.0: Being human in the age of artificial intelligence. Vintage.
+
+[15] Dao, D. (2021). Awful AI. Github. Retrieved January 17, 2023. [https://github.com/daviddao/awful-ai](https://github.com/daviddao/awful-ai).
